@@ -7,7 +7,7 @@ from core.models import ISOCodes
 class TestCountriesClass:
     countries = models.Countries(ISOCodes.i3166_1)
 
-    def test_get_method_should_work_for_required_fields(self):
+    def test_get_method_should_work_for_all_fields(self):
         assert self.countries.get(name='United Kingdom') == models.Country(
             name='United Kingdom',
             alpha_2='GB',
