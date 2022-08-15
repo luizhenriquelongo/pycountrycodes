@@ -4,16 +4,16 @@ from typing import (
 )
 
 from pydantic import (
+    BaseModel,
     Extra,
 )
 
 from core.models import (
     Database,
-    DatabaseDataclass,
 )
 
 
-class Country(DatabaseDataclass):
+class Country(BaseModel):
     name: str
     alpha_2: str
     alpha_3: str

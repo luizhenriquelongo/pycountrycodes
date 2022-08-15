@@ -6,24 +6,25 @@ from typing import (
 from pydantic import BaseModel
 
 
-def get_index_using_binary_search(array: List[BaseModel], field: str, value: str) -> Optional[int]:
-    array.sort(key=lambda obj: getattr(obj, field, None))
+def get_object_using_binary_search(array: List[BaseModel], field: str, value: str) -> Optional[BaseModel]:
+    filtered_array = list(filter(lambda obj: getattr(obj, field, None) is not None, array))
+    filtered_array.sort(key=lambda obj: getattr(obj, field, None))
 
     value = value.lower()
 
     low = 0
-    high = len(array) - 1
+    high = len(filtered_array) - 1
 
     while low <= high:
         mid = (high + low) // 2
 
-        if getattr(array[mid], field).lower() < value:
+        if getattr(filtered_array[mid], field).lower() < value:
             low = mid + 1
 
-        elif getattr(array[mid], field).lower() > value:
+        elif getattr(filtered_array[mid], field).lower() > value:
             high = mid - 1
 
         else:
-            return mid
+            return filtered_array[mid]
 
     return None
