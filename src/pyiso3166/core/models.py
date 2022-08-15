@@ -5,8 +5,12 @@ from enum import (
     EnumMeta,
 )
 from typing import (
+    Any,
     List,
+    Optional,
+    Tuple,
     Type,
+    Union,
 )
 
 from pydantic import BaseModel
@@ -46,23 +50,18 @@ class Database(abc.ABC):
     def __len__(self):
         return len(self.database)
 
-    def get(self, **kwargs):
-        kwargs.setdefault("default", None)
-        default = kwargs.pop("default")
+    def get(self, *, multiple_results_lookup_fields: Optional[List[str]] = None, **kwargs) -> Optional[Union[BaseModel, List[BaseModel]]]:
+        if multiple_results_lookup_fields is None:
+            multiple_results_lookup_fields = []
 
-        if len(kwargs) != 1:
-            raise TypeError("Only one criteria may be given")
+        field, value, default = self._get_field_value_and_default_from_kwargs(kwargs)
+        if field in multiple_results_lookup_fields:
+            options = list(filter(lambda obj: getattr(obj, field, '').strip().lower() == value.lower(), self.database))
+            return options if options else default
 
-        field, value = kwargs.popitem()
-        if field not in self.dataclass.__fields__:
-            raise AttributeError(f'{self.dataclass.__str__} model has no attribute {field}.')
-
-        if not isinstance(value, str):
-            raise TypeError(f'The value "{value}" must be a string.')
-
-        value = value.strip()
-        obj = get_object_using_binary_search(self.database, field, value)
-        return obj if obj is not None else default
+        else:
+            obj = get_object_using_binary_search(self.database, field, value)
+            return obj if obj is not None else default
 
     def _populate_database(self) -> List['dataclass']:
         data = self._load_data_from_file()
@@ -73,6 +72,30 @@ class Database(abc.ABC):
             data = json.load(file)
 
         return data[self.__isocode]
+
+    def _validate_field(self, field: str):
+        if field not in self.dataclass.__fields__:
+            raise AttributeError(
+                f'{self.dataclass.__name__} allows get() only for {", ".join(self.dataclass.__fields__)}.'
+            )
+
+    def _validate_value(self, value: str):
+        if not isinstance(value, str):
+            raise TypeError(f'The value "{value}" must be a string.')
+
+    def _get_field_value_and_default_from_kwargs(self, kwargs: dict) -> Tuple[str, str, Optional[Any]]:
+        kwargs.setdefault("default", None)
+        default = kwargs.pop("default")
+
+        if len(kwargs) != 1:
+            raise TypeError("Only one criteria may be given")
+
+        field, value = kwargs.popitem()
+        self._validate_field(field)
+        self._validate_value(value)
+
+        value = value.strip()
+        return field, value, default
 
     @property
     @abc.abstractmethod
