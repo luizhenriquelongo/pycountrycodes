@@ -21,9 +21,9 @@ from pydantic import (
 )
 from rapidfuzz import fuzz
 
-from core import utils
-from core.binary_search import get_object_using_binary_search
-from core.config import BASE_DIR
+from pyiso3166.core import utils
+from pyiso3166.core.binary_search import get_object_using_binary_search
+from pyiso3166.core.config import BASE_DIR
 
 
 class MetaEnum(EnumMeta):

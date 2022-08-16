@@ -1,9 +1,9 @@
 import pytest
 import pytest_mock
 
-from core.models import ISOCodes
-from countries_3166_1 import models as countries_models
-from subdivisions_3166_2 import models
+from pyiso3166.core.models import ISOCodes
+from pyiso3166.countries_3166_1 import models as countries_models
+from pyiso3166.subdivisions_3166_2 import models
 
 
 @pytest.fixture(scope="module")
@@ -121,7 +121,7 @@ class TestSubdivisionsClass:
         assert results[0].match_score >= match_score_cutoff
 
     def test_search_method_raises_when_no_searchable_fields(self, subdivisions, mocker: pytest_mock.MockerFixture):
-        mocked_dataclass = mocker.patch("src.pyiso3166.Subdivisions.dataclass", mocker.Mock())
+        mocked_dataclass = mocker.patch("pyiso3166.Subdivisions.dataclass", mocker.Mock())
         mocked_dataclass.get_searchable_fields = mocker.Mock()
         mocked_dataclass.get_searchable_fields.return_value = []
 

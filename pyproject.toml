@@ -12,12 +12,14 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 repository = "https://github.com/luizhenriquelongo/pyiso3166"
+#packages = {"src.pyiso3166"}
 
 
 [tool.poetry.dependencies]
 python = ">=3.7"
 pydantic = "^1.9.2"
 rapidfuzz = "^2.5.0"
+tox = "^3.25.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

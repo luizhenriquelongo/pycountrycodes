@@ -3,7 +3,7 @@ from typing import (
     Optional,
 )
 
-from core.models import (
+from pyiso3166.core.models import (
     BaseDataClass,
     Database,
 )
