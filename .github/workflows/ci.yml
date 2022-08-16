@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest ]
         python-version: [ '3.7', '3.8', '3.9', '3.10' ]
 
     steps:
@@ -34,11 +34,6 @@ jobs:
           key: poetry-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             poetry-${{ hashFiles('**/poetry.lock') }}
-
-      #      - name: Set Poetry config
-      #        run: |
-      #          poetry config settings.virtualenvs.in-project false
-      #          poetry config settings.virtualenvs.path ~/.virtualenvs
 
       - name: Install Dependencies
         run: poetry install
