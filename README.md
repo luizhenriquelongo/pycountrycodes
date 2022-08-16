@@ -1,3 +1,5 @@
+![ci](https://github.com/luizhenriquelongo/pyiso3166/actions/workflows/ci.yml/badge.svg)
+
 # PyIso 3166
 
 PyIso 3166 is a Python library for dealing with the ISO 3166-1 and ISO 3166-2 Standards in a simple way.
