@@ -5,7 +5,7 @@ from typing import (
 )
 
 from core import models
-from countries.models import Country
+from countries_3166_1.models import Country
 
 
 class Subdivision(models.BaseDataClass):

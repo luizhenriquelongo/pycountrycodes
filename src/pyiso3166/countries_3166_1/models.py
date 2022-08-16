@@ -28,5 +28,4 @@ class Countries(Database):
     dataclass = Country
 
     def get(self, **kwargs) -> Optional[Country]:
-        multiple_results_lookup_fields = []
-        return super(Countries, self).get(multiple_results_lookup_fields=multiple_results_lookup_fields, **kwargs)
+        return super(Countries, self).get(**kwargs)
