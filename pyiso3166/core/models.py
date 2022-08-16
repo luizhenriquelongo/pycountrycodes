@@ -144,7 +144,8 @@ class Database(abc.ABC):
             total_score = 0
             fields_used = 0
             for field in searchable_fields:
-                if field_value := getattr(item, field, None):
+                field_value = getattr(item, field, None)
+                if field_value is not None:
                     ratio_score = fuzz.ratio(query, utils.remove_accents(field_value.strip().lower()))
                     partial_score = fuzz.partial_ratio(query, field_value.strip().lower())
                     average_score = (ratio_score + partial_score) / 2
