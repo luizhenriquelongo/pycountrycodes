@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          fetch-depth: '2'
 
       - name: Set the value
         run: |
@@ -44,3 +45,8 @@ jobs:
 
       - name: Test with tox
         run: poetry run tox
+
+      - name: Generate Report
+        run: poetry run coverage run -m pytest
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v2
