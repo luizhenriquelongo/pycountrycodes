@@ -1,4 +1,5 @@
 ![ci](https://github.com/luizhenriquelongo/pyiso3166/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/luizhenriquelongo/pyiso3166/branch/master/graph/badge.svg?token=53G6ZN5K2E)](https://codecov.io/gh/luizhenriquelongo/pyiso3166)
 
 # PyIso 3166
 
