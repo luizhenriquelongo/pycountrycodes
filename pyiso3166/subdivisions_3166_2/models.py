@@ -38,6 +38,25 @@ class Subdivisions(models.Database):
     dataclass = Subdivision
 
     def get(self, **kwargs) -> Optional[Union[List[Subdivision], Subdivision]]:
+        """
+        This function returns a subdivision object from the database or a list of subdivision objects, if it exists.
+
+        Returns:
+          A Subdivision object or a List of Subdivisions
+
+        Examples:
+            Get a subdivision by its code:
+
+            >>> subdivision = subdivisions.get(code='US-NY')
+            >>> print(subdivision.name)
+            'New York'
+
+            Get all subdivision from a country:
+
+            >>> all_subdivisions = subdivisions.get(country_code='US')
+            >>> len(all_subdivisions)
+            57
+        """
         multiple_results_lookup_fields = ["name", "type", "country_code"]
         return super(Subdivisions, self).get(multiple_results_lookup_fields=multiple_results_lookup_fields, **kwargs)
 

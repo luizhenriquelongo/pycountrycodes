@@ -83,6 +83,18 @@ class Database(abc.ABC):
     def get(
         self, *, multiple_results_lookup_fields: Optional[List[str]] = None, **kwargs
     ) -> Optional[Union[BaseDataClass, List[BaseDataClass]]]:
+        """
+        > If the field is in the list of fields that can have multiple results, return a list of all objects that match
+        the value. Otherwise, return the first object that matches the value
+
+        Args:
+          multiple_results_lookup_fields (Optional[List[str]]): This is a list of fields that can have multiple results.
+        For example, if you have a list of people, and you want to search for people with the same last name, you would
+        pass in ["last_name"] as the value for this parameter.
+
+        Returns:
+          The object that matches the field and value, or the default if no match is found.
+        """
         if multiple_results_lookup_fields is None:
             multiple_results_lookup_fields = []
 
@@ -96,6 +108,16 @@ class Database(abc.ABC):
             return obj if obj is not None else default
 
     def search(self, query: str, *, match_score_cutoff: float = 50) -> List[BaseDataClass]:
+        """
+        It takes a query string, and returns a list of objects that match the query
+
+        Args:
+          query (str): The query string to search for.
+          match_score_cutoff (float): The minimum score a match must have to be returned. Defaults to 50
+
+        Returns:
+          A list of specified dataclass objects.
+        """
         searchable_fields = self.dataclass.get_searchable_fields()
         if not searchable_fields:
             raise AttributeError(f"Method not available for class {self.dataclass.__name__}")
@@ -105,6 +127,18 @@ class Database(abc.ABC):
         return options
 
     def get_options(self, query: str, searchable_fields: List[str], score_cutoff: float) -> List[BaseDataClass]:
+        """
+        It takes a query string, a list of fields that are searchable, and a score cutoff, and returns a list of objects
+        that match the query string in the specified fields with a score greater than or equal to the score cutoff
+
+        Args:
+          query (str): The string that you want to search for.
+          searchable_fields (List[str]): A list of strings that are the names of the fields that search is available.
+          score_cutoff (float): The minimum score that an option must have to be returned.
+
+        Returns:
+          A list of the specified dataclass objects.
+        """
         options = copy.copy(self.database)
         for item in options:
             total_score = 0
@@ -131,26 +165,60 @@ class Database(abc.ABC):
         return list(filter(lambda obj: obj.match_score >= score_cutoff, options))
 
     def _populate_database(self) -> List[BaseDataClass]:
+        """
+        > It loads data from a file, and then creates a list of objects from that data
+
+        Returns:
+          A list of specified dataclass objects
+        """
         data = self._load_data_from_file()
         return [self.dataclass(**item) for item in data]
 
     def _load_data_from_file(self) -> List:
+        """
+        It opens a file, reads the data, and returns the data
+
+        Returns:
+          A list of dictionaries.
+        """
         with open(BASE_DIR / "iso" / f"{self.__isocode}.json", mode="r") as file:
             data = json.load(file)
 
         return data[self.__isocode]
 
     def _validate_field(self, field: str):
+        """
+        If the field is not in the dataclass, raise an AttributeError
+
+        Args:
+          field (str): The name of the field to get.
+        """
         if field not in self.dataclass.__fields__:
             raise AttributeError(
                 f'{self.dataclass.__name__} allows get() only for {", ".join(self.dataclass.__fields__)}.'
             )
 
     def _validate_value(self, value: str):
+        """
+        If the value is not a string, raise a TypeError.
+
+        Args:
+          value (str): The value to validate.
+        """
         if not isinstance(value, str):
             raise TypeError(f'The value "{value}" must be a string.')
 
     def _get_field_value_and_default_from_kwargs(self, kwargs: dict) -> Tuple[str, str, Optional[Any]]:
+        """
+        It takes a dictionary of keyword arguments, and returns a tuple of three values: the field name,
+        the field value, and the default value.
+
+        Args:
+          kwargs (dict): The keyword arguments passed to the function.
+
+        Returns:
+          A tuple of the field, value, and default.
+        """
         kwargs.setdefault("default", None)
         default = kwargs.pop("default")
 

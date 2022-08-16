@@ -28,4 +28,17 @@ class Countries(Database):
     dataclass = Country
 
     def get(self, **kwargs) -> Optional[Country]:
+        """
+        This function returns a country object from the database, if it exists
+
+        Returns:
+          A Country object
+
+        Examples:
+            Get a country by its name:
+
+            >>> country = countries.get(name='United Kingdom')
+            >>> print(country.alpha_2)
+            'GB'
+        """
         return super(Countries, self).get(**kwargs)
