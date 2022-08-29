@@ -1,8 +1,8 @@
 import pytest
 import pytest_mock
 
-from pyiso3166.core.models import ISOCodes
-from pyiso3166.countries_3166_1 import models
+from pycountrycodes.core.models import ISOCodes
+from pycountrycodes.countries_3166_1 import models
 
 
 class TestCountriesClass:
@@ -168,7 +168,7 @@ class TestCountriesClass:
         assert results[0].match_score >= match_score_cutoff
 
     def test_search_method_raises_when_no_searchable_fields(self, mocker: pytest_mock.MockerFixture):
-        mocked_dataclass = mocker.patch("pyiso3166.Countries.dataclass", mocker.Mock())
+        mocked_dataclass = mocker.patch("pycountrycodes.Countries.dataclass", mocker.Mock())
         mocked_dataclass.get_searchable_fields = mocker.Mock()
         mocked_dataclass.get_searchable_fields.return_value = []
 

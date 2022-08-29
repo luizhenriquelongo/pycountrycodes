@@ -3,7 +3,7 @@ from typing import (
     Optional,
 )
 
-from pyiso3166.core.models import (
+from pycountrycodes.core.models import (
     BaseDataClass,
     Database,
 )

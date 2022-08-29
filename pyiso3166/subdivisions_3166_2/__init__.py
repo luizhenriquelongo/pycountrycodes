@@ -1,1 +1,0 @@
-from pyiso3166.subdivisions_3166_2.models import Subdivisions

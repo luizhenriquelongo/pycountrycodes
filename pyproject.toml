@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyiso3166"
+name = "pycountrycodes"
 version = "0.1.0"
 description = "Python package that replicates the ISO-3166 and ISO-3166-2 standards."
 authors = ["Luiz Henrique Longo <longo.luizh@gmail.com>"]
@@ -12,7 +12,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 repository = "https://github.com/luizhenriquelongo/pyiso3166"
-#packages = {"src.pyiso3166"}
 
 
 [tool.poetry.dependencies]

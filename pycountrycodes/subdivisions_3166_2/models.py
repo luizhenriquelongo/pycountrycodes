@@ -4,8 +4,8 @@ from typing import (
     Union,
 )
 
-from pyiso3166.core import models
-from pyiso3166.countries_3166_1.models import Country
+from pycountrycodes.core import models
+from pycountrycodes.countries_3166_1.models import Country
 
 
 class Subdivision(models.BaseDataClass):
@@ -17,7 +17,7 @@ class Subdivision(models.BaseDataClass):
 
     @property
     def country(self) -> Optional[Country]:
-        from pyiso3166 import countries
+        from pycountrycodes import countries
 
         return countries.get(alpha_2=self.country_code)
 
@@ -25,7 +25,7 @@ class Subdivision(models.BaseDataClass):
     def parent(self) -> Optional["Subdivision"]:
         if self.parent_code is None:
             return None
-        from pyiso3166 import subdivisions
+        from pycountrycodes import subdivisions
 
         return subdivisions.get(code=self.parent_code)
 

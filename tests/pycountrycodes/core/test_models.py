@@ -1,10 +1,10 @@
-from pyiso3166 import (
+from pycountrycodes import (
     countries,
     subdivisions,
 )
-from pyiso3166.core import models
-from pyiso3166.countries_3166_1.models import Country
-from pyiso3166.subdivisions_3166_2.models import Subdivision
+from pycountrycodes.core import models
+from pycountrycodes.countries_3166_1.models import Country
+from pycountrycodes.subdivisions_3166_2.models import Subdivision
 
 
 class TestISOCodesEnum:

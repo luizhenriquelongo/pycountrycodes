@@ -1,16 +1,16 @@
 ![ci](https://github.com/luizhenriquelongo/pyiso3166/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/luizhenriquelongo/pyiso3166/branch/master/graph/badge.svg?token=53G6ZN5K2E)](https://codecov.io/gh/luizhenriquelongo/pyiso3166)
 
-# PyIso 3166
+# PyCountryCodes
 
-PyIso 3166 is a Python library for dealing with the ISO 3166-1 and ISO 3166-2 Standards in a simple way.
+PyCountryCodes is a Python library for dealing with the ISO 3166-1 and ISO 3166-2 Standards in a simple way.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `pyiso3166`.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `pycountrycodes`.
 
 ```bash
-pip install pyiso3166
+pip install pycountrycodes
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ pip install pyiso3166
 ### ISO 3166-1
 
 ```python
-from pyiso3166 import countries
+from pycountrycodes import countries
 
 # Go through the full list of countries available.
 for country in countries:
@@ -42,7 +42,7 @@ countries.search('United Kingdom', match_score_cutoff=70)
 ### ISO 3166-2
 
 ```python
-from pyiso3166 import subdivisions
+from pycountrycodes import subdivisions
 
 # Go through the full list of subdivisions available.
 for subdivisions in subdivisions:
