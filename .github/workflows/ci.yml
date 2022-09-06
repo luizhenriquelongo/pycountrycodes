@@ -25,7 +25,8 @@ jobs:
           echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
 
       - name: Install Poetry
-        uses: dschep/install-poetry-action@v1.2
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Cache Poetry virtualenv
         uses: actions/cache@v1
