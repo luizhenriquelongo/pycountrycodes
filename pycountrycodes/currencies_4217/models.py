@@ -17,7 +17,7 @@ class Currency(BaseDataClass):
 
     @staticmethod
     def get_searchable_fields() -> List[str]:
-        return ['name']
+        return ["name"]
 
 
 class Currencies(Database):
