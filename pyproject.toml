@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pycountrycodes"
 version = "0.2.0"
-description = "Python package that replicates the ISO-3166 and ISO-3166-2 standards."
+description = "Python package that replicates the ISO-3166, ISO-3166-2 and ISO-4217 (Currencies) standards."
 authors = ["Luiz Henrique Longo <longo.luizh@gmail.com>"]
 maintainers = ["Luiz Henrique Longo <longo.luizh@gmail.com>"]
 license = "MIT"
@@ -11,7 +11,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-repository = "https://github.com/luizhenriquelongo/pyiso3166"
+repository = "https://github.com/luizhenriquelongo/pycountrycodes"
 
 
 [tool.poetry.dependencies]
