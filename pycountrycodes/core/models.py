@@ -42,6 +42,7 @@ class BaseEnum(str, Enum, metaclass=MetaEnum):
 class ISOCodes(BaseEnum):
     i3166_1 = "3166-1"
     i3166_2 = "3166-2"
+    i4217 = "4217"
 
 
 class BaseDataClass(abc.ABC, BaseModel):
