@@ -1,5 +1,5 @@
 ![ci](https://github.com/luizhenriquelongo/pyiso3166/actions/workflows/ci.yml/badge.svg)
-[![codecov](https://codecov.io/gh/luizhenriquelongo/pyiso3166/branch/master/graph/badge.svg?token=53G6ZN5K2E)](https://codecov.io/gh/luizhenriquelongo/pyiso3166)
+[![codecov](https://codecov.io/gh/luizhenriquelongo/pycountrycodes/branch/master/graph/badge.svg?token=53G6ZN5K2E)](https://codecov.io/gh/luizhenriquelongo/pycountrycodes)
 
 # PyCountryCodes
 
@@ -62,10 +62,37 @@ subdivisions.get(country_code='GB')  # returns all Subdivision where obj.country
 # returns a list of Subdivisions options fot the given query using fuzzy search.
 subdivisions.search('New York')
 
-# returns a list of Country options fot the given query using fuzzy search 
+# returns a list of Subdivision options fot the given query using fuzzy search 
 # using the match_score_cutoff to filter the list and only return results with
 # match_score greater or equal to 70.
 subdivisions.search('New York', match_score_cutoff=70)
+```
+
+### ISO 4127
+
+```python
+from pycountrycodes import currencies
+
+# Go through the full list of currencies available.
+for currency in currencies:
+    # prints the currency name
+    print(currency.name)
+
+# returns a Currency object if the given criteria matches.
+currencies.get(alpha_3='USD')
+
+# returns a list of Currencies objects if the given criteria matches.
+# for name this method will return a list of options since
+# there can be multiples Currency objects with the same attribute values.
+currencies.get(name='Leone')  # returns all Currency where obj.name is 'Leone'
+
+# returns a list of Currencies options fot the given query using fuzzy search.
+currencies.search('Dollar')
+
+# returns a list of Currency options fot the given query using fuzzy search 
+# using the match_score_cutoff to filter the list and only return results with
+# match_score greater or equal to 70.
+currencies.search('Dollar', match_score_cutoff=70)
 ```
 
 ## Contributing
