@@ -11,6 +11,7 @@ class TestISOCodesEnum:
     def test_is_able_to_check_when_enum_contains_a_value(self):
         assert "3166-1" in models.ISOCodes
         assert "3166-2" in models.ISOCodes
+        assert "4217" in models.ISOCodes
 
     def test_is_able_to_check_when_enum_does_not_contains_a_value(self):
         assert "3166-3" not in models.ISOCodes
