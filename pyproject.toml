@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycountrycodes"
-version = "0.1.0"
+version = "0.2.0"
 description = "Python package that replicates the ISO-3166 and ISO-3166-2 standards."
 authors = ["Luiz Henrique Longo <longo.luizh@gmail.com>"]
 maintainers = ["Luiz Henrique Longo <longo.luizh@gmail.com>"]
@@ -34,7 +34,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.bumpver]
-current_version = "0.1.0"
+current_version = "0.2.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version {old_version} -> {new_version}"
 commit = true
