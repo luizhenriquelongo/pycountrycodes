@@ -1,4 +1,5 @@
 from typing import (
+    Any,
     List,
     Optional,
 )
@@ -42,3 +43,25 @@ class Countries(Database):
             'GB'
         """
         return super(Countries, self).get(**kwargs)
+
+    def lookup(self, value: str, default: Any = None, **kwargs) -> Optional[Country]:
+        """
+        It looks for a countries where the name or official name are equal to a given value,
+        and returns the first object that matches
+
+        Args:
+          value (str): The value to search for
+          default (Any): The default value to return if no object is found
+
+        Returns:
+          The object of type Country if found else None
+
+        Examples:
+            Lookup for a country called 'Brazil':
+
+            >>> country = countries.lookup('Brazil')
+            >>> print(country.alpha_2)
+            'BR'
+        """
+        fields_to_lookup = ["name", "official_name", "alpha_3", "alpha_2"]
+        return super(Countries, self).lookup(value, fields_to_lookup, default)

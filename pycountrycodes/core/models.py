@@ -166,6 +166,33 @@ class Database(abc.ABC):
         options.sort(key=lambda obj: obj.match_score, reverse=True)
         return list(filter(lambda obj: obj.match_score >= score_cutoff, options))
 
+    @abc.abstractmethod
+    def lookup(self, value: str, fields_to_lookup: List[str], default: Any = None) -> Optional[BaseDataClass]:
+        """
+        It looks for a value in a list of fields, and returns the first object that matches
+
+        Args:
+          value (str): The value to search for
+          fields_to_lookup (List[str]): List of fields to lookup
+          default (Any): The default value to return if no object is found
+
+        Returns:
+          The object of type BaseDataClass if found else None
+        """
+        searchable_fields = self.dataclass.get_searchable_fields()
+        if not searchable_fields:
+            raise AttributeError(f"Method not available for class {self.dataclass.__name__}")
+
+        value = utils.remove_accents(value.strip().lower())
+
+        obj = None
+        for field in fields_to_lookup:
+            obj = get_object_using_binary_search(self.database, field, value)
+            if obj is not None:
+                break
+
+        return obj if obj is not None else default
+
     def _populate_database(self) -> List[BaseDataClass]:
         """
         > It loads data from a file, and then creates a list of objects from that data

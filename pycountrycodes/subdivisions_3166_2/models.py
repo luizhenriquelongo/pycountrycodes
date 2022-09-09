@@ -1,4 +1,5 @@
 from typing import (
+    Any,
     List,
     Optional,
     Union,
@@ -82,3 +83,25 @@ class Subdivisions(models.Database):
             )
             for item in data
         ]
+
+    def lookup(self, value: str, default: Any = None, **kwargs) -> Optional[Subdivision]:
+        """
+        It looks for a subdivision where the code is equal to a given value,
+        and returns the first object that matches
+
+        Args:
+          value (str): The value to search for
+          default (Any): The default value to return if no object is found
+
+        Returns:
+          The object of type Subdivision if found else None
+
+        Examples:
+            Lookup for a subdivision with the code 'US-NY':
+
+            >>> subdivision = subdivisions.lookup('US-NY')
+            >>> print(subdivision.name)
+            'New York'
+        """
+        fields_to_lookup = ["code"]
+        return super(Subdivisions, self).lookup(value, fields_to_lookup, default)
