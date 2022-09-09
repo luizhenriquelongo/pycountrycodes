@@ -85,3 +85,12 @@ class TestCurrenciesClass:
             currencies.search("Dollar")
 
         mocked_dataclass.get_searchable_fields.assert_called_once()
+
+    def test_lookup_method_using_alpha_3(self, currencies):
+        result = currencies.lookup("USD")
+        assert isinstance(result, models.Currency)
+        assert result == models.Currency(alpha_3="USD", name="US Dollar", numeric="840")
+
+    def test_lookup_method_should_return_none_for_not_found_subdivision(self, currencies):
+        result = currencies.lookup("ZZZ")
+        assert result is None

@@ -130,6 +130,17 @@ class TestSubdivisionsClass:
 
         mocked_dataclass.get_searchable_fields.assert_called_once()
 
+    def test_lookup_method_using_code(self, subdivisions):
+        result = subdivisions.lookup("US-NY")
+        assert isinstance(result, models.Subdivision)
+        assert result == models.Subdivision(
+            name="New York", code="US-NY", type="State", country_code="US", parent_code=None
+        )
+
+    def test_lookup_method_should_return_none_for_not_found_subdivision(self, subdivisions):
+        result = subdivisions.lookup("US-ZZ")
+        assert result is None
+
 
 class TestSubdivisionClass:
     def test_if_model_can_get_country(self, subdivisions):

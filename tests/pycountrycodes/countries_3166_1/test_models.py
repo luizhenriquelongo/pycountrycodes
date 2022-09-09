@@ -3,6 +3,7 @@ import pytest_mock
 
 from pycountrycodes.core.models import ISOCodes
 from pycountrycodes.countries_3166_1 import models
+from pycountrycodes.countries_3166_1.models import Country
 
 
 class TestCountriesClass:
@@ -176,3 +177,59 @@ class TestCountriesClass:
             self.countries.search("United")
 
         mocked_dataclass.get_searchable_fields.assert_called_once()
+
+    def test_lookup_method_using_name(self):
+        result = self.countries.lookup("Brazil")
+        assert isinstance(result, Country)
+        assert result == models.Country(
+            name="Brazil",
+            alpha_2="BR",
+            alpha_3="BRA",
+            flag="🇧🇷",
+            numeric="076",
+            official_name="Federative Republic of Brazil",
+            common_name=None,
+        )
+
+    def test_lookup_method_using_official_name(self):
+        result = self.countries.lookup("Federative Republic of Brazil")
+        assert isinstance(result, Country)
+        assert result == models.Country(
+            name="Brazil",
+            alpha_2="BR",
+            alpha_3="BRA",
+            flag="🇧🇷",
+            numeric="076",
+            official_name="Federative Republic of Brazil",
+            common_name=None,
+        )
+
+    def test_lookup_method_using_alpha_3(self):
+        result = self.countries.lookup("BRA")
+        assert isinstance(result, Country)
+        assert result == models.Country(
+            name="Brazil",
+            alpha_2="BR",
+            alpha_3="BRA",
+            flag="🇧🇷",
+            numeric="076",
+            official_name="Federative Republic of Brazil",
+            common_name=None,
+        )
+
+    def test_lookup_method_using_alpha_2(self):
+        result = self.countries.lookup("BR")
+        assert isinstance(result, Country)
+        assert result == models.Country(
+            name="Brazil",
+            alpha_2="BR",
+            alpha_3="BRA",
+            flag="🇧🇷",
+            numeric="076",
+            official_name="Federative Republic of Brazil",
+            common_name=None,
+        )
+
+    def test_lookup_method_should_return_none_for_not_found_country(self):
+        result = self.countries.lookup("Brasil")
+        assert result is None
