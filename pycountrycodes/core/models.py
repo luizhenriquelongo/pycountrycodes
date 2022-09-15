@@ -210,7 +210,7 @@ class Database(abc.ABC):
         Returns:
           A list of dictionaries.
         """
-        with open(BASE_DIR / "iso" / f"{self.__isocode}.json", mode="r") as file:
+        with open(BASE_DIR / "iso" / f"{self.__isocode}.json", mode="r", encoding="utf_8") as file:
             data = json.load(file)
 
         return data[self.__isocode]
